@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.Slider?>
+<VBox alignment="TOP_CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.rocoomusic.april_21_2026.POSController">
+    <padding>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+    </padding>
+
+    <Label text = "Andrew's Cafe POS" style ="-fx-font-size: 24px; -fx-font-weight: bold"/>
+    <HBox spacing = "10" alignment = "CENTER">
+        <Label text = "Customer Name: " />
+        <TextField fx:id="customerNameField" promptText="Enter Name..." />
+        <Button fx:id ="startOrderButton" text ="Start Order" />
+    </HBox>
+    <Label fx:id="orderStatusLabel" text="Waiting for new customer..." style="-fx-text-fill: gray; -fx-font-style: italic"/>
+
+    <HBox spacing="50" alignment="CENTER">
+        <VBox spacing="10" alignment="TOP_LEFT" prefWidth="300" style="-fx-border-color: lightgray; -fx-padding: 10;">
+            <Label text="Drink Customization" style ="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <Label text="1. Select Coffee: "/>
+            <ComboBox fx:id="coffeeComboBox" promptText="Choose a drink..." onAction="#updateLivePrice"/>
+
+            <Label text="2. Select Size:"/>
+            <HBox spacing="10">
+                <fx:define>
+                    <ToggleGroup fx:id="sizeGroup"/>
+                </fx:define>
+                <RadioButton fx:id="smallRadio" text="Small" toggleGroup="$sizeGroup" selected="true" onAction="#updateLivePrice"/>
+                <RadioButton fx:id="mediumRadio" text="Medium" toggleGroup="$sizeGroup" onAction="#updateLivePrice"/>
+                <RadioButton fx:id="largeRadio" text="Large" toggleGroup="$sizeGroup" onAction="#updateLivePrice"/>
+            </HBox>
+
+            <Label fx:id="sweetnessLabel" text="3. Sweetness: 50%"/>
+            <Slider fx:id="sweetnessSlider" min="0" max="100" value="50" showTickMarks="true" showTickLabels="true"/>
+
+            <HBox spacing="15" alignment="CENTER_LEFT"/>
+                <Label fx:id="livePriceLabel" text="Price: $0.00" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: blue;"/>
+                <Button text="Add to Receipt" onAction="#handleAddDrink"/>
+            <HBox/>
+        </VBox>
+
+        <VBox spacing="10" alignment="TOP_LEFT">
+            <Label text="Live Receipt" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <VBox fx:id="receiptBox" spacing="5"/>
+
+            <Button text="Clear Order" onAction="#handleClearOrder" style="-fx-text-fill: red;"/>
+        </VBox>
+    </HBox>
+
+</VBox>
